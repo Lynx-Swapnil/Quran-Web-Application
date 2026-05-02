@@ -16,7 +16,7 @@ export default function SurahPage() {
   const { fontSettings, setCurrentSurah, updateFontSettings } = useQuranStore();
   const allSurahs = getAllSurahs();
 
-  const [showSettings, setShowSettings] = useState(true);
+  const [showSettings, setShowSettings] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [showFontDropdown, setShowFontDropdown] = useState(false);
 
@@ -97,6 +97,13 @@ export default function SurahPage() {
             <button className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-800 bg-slate-900 transition-colors hover:border-slate-700 hover:bg-slate-800 hover:text-white" title="More">
               <MoreHorizontal className="h-4 w-4" />
             </button>
+            <button
+              onClick={() => setShowSettings((current) => !current)}
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-800 bg-slate-900 transition-colors hover:border-slate-700 hover:bg-slate-800 hover:text-white"
+              title="Settings"
+            >
+              <ChevronDown className="h-4 w-4" />
+            </button>
           </div>
 
           <div className="mt-auto flex h-11 w-11 items-center justify-center rounded-full border border-slate-800 bg-slate-900 text-slate-500">
@@ -155,7 +162,7 @@ export default function SurahPage() {
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-green-600 font-semibold">Font Settings</h3>
                 <button
-                  onClick={() => setShowSettings(!showSettings)}
+                  onClick={() => setShowSettings(false)}
                   className="text-slate-400 hover:text-white"
                 >
                   ↑
