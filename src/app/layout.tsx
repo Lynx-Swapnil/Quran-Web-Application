@@ -33,17 +33,13 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               try {
-                if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                  document.documentElement.classList.add('dark')
-                } else {
-                  document.documentElement.classList.remove('dark')
-                }
+                document.documentElement.classList.remove('dark');
               } catch (e) {}
             `,
           }}
         />
       </head>
-      <body className="dark bg-slate-950 text-slate-200 min-h-screen">{children}</body>
+      <body className="bg-white text-slate-900 min-h-screen">{children}</body>
     </html>
   );
 }

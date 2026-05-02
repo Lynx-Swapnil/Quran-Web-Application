@@ -40,10 +40,10 @@ export const AyahCard: React.FC<AyahCardProps> = ({
   return (
     <div
       id={`ayah-${ayah.number}`}
-      className="bg-slate-800 border border-slate-700 rounded-lg p-6 mb-4 hover:border-slate-600 transition-colors"
+      className="bg-slate-50 border border-slate-200 rounded-lg p-6 mb-4 hover:border-slate-300 transition-colors"
     >
       {/* Ayah Number */}
-      <div className="text-sm font-semibold text-slate-400 mb-4">
+      <div className="text-sm font-semibold text-slate-600 mb-4">
         {surahNumber}:{ayah.number}
       </div>
 
@@ -51,41 +51,41 @@ export const AyahCard: React.FC<AyahCardProps> = ({
       <div className="flex gap-2 mb-6">
         <button
           onClick={handlePlay}
-          className="p-2 rounded-lg hover:bg-slate-700 transition-colors"
+          className="p-2 rounded-lg hover:bg-slate-200 transition-colors"
           title={isPlaying ? 'Pause' : 'Play'}
         >
           {isPlaying ? (
-            <Pause className="w-5 h-5 text-green-500" />
+            <Pause className="w-5 h-5 text-green-600" />
           ) : (
-            <Play className="w-5 h-5 text-slate-400" />
+            <Play className="w-5 h-5 text-slate-600" />
           )}
         </button>
         <button
           onClick={handleCopy}
-          className="p-2 rounded-lg hover:bg-slate-700 transition-colors"
+          className="p-2 rounded-lg hover:bg-slate-200 transition-colors"
           title="Copy"
         >
-          <Copy className="w-5 h-5 text-slate-400" />
+          <Copy className="w-5 h-5 text-slate-600" />
         </button>
         <button
-          className="p-2 rounded-lg hover:bg-slate-700 transition-colors"
+          className="p-2 rounded-lg hover:bg-slate-200 transition-colors"
           title="Bookmark"
         >
-          <BookOpen className="w-5 h-5 text-slate-400" />
+          <BookOpen className="w-5 h-5 text-slate-600" />
         </button>
         <button
           onClick={handleShare}
-          className="p-2 rounded-lg hover:bg-slate-700 transition-colors"
+          className="p-2 rounded-lg hover:bg-slate-200 transition-colors"
           title="Share"
         >
-          <Share2 className="w-5 h-5 text-slate-400" />
+          <Share2 className="w-5 h-5 text-slate-600" />
         </button>
       </div>
 
       {/* Arabic Text */}
       <div className="mb-6 text-right">
         <p
-          className="leading-relaxed text-slate-100"
+          className="leading-relaxed text-slate-900 font-semibold"
           style={{
             fontSize: `${arabicFontSize}px`,
             fontFamily: fontSettings.arabicFont === 'amiri' ? 'Amiri, serif' : 'serif',
@@ -98,10 +98,10 @@ export const AyahCard: React.FC<AyahCardProps> = ({
       </div>
 
       {/* Translation */}
-      <div className="border-t border-slate-700 pt-4">
-        <p className="text-xs font-semibold text-green-500 mb-2">SAHEEH INTERNATIONAL</p>
+      <div className="border-t border-slate-200 pt-4">
+        <p className="text-xs font-semibold text-green-600 mb-2">SAHEEH INTERNATIONAL</p>
         <p
-          className="text-slate-300 leading-relaxed"
+          className="text-slate-700 leading-relaxed"
           style={{
             fontSize: `${fontSettings.translationFontSize}px`,
           }}

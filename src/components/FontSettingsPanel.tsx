@@ -26,9 +26,9 @@ export const FontSettingsPanel: React.FC<FontSettingsPanelProps> = ({ isOpen, on
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-end lg:items-center justify-center z-50">
-      <div className="bg-slate-900 w-full lg:w-96 rounded-t-lg lg:rounded-lg border border-slate-800 max-h-[90vh] overflow-y-auto">
+      <div className="bg-white w-full lg:w-96 rounded-t-lg lg:rounded-lg border border-slate-200 max-h-[90vh] overflow-y-auto">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-slate-800">
+        <div className="flex items-center justify-between p-6 border-b border-slate-200">
           <h2 className="text-lg font-semibold text-white">Font Settings</h2>
           <button
             onClick={onClose}
@@ -39,7 +39,7 @@ export const FontSettingsPanel: React.FC<FontSettingsPanelProps> = ({ isOpen, on
         </div>
 
         {/* Content */}
-        <div className="p-6 space-y-8">
+        <div className="p-6 space-y-8 text-slate-900">
           {/* Arabic Font Selection */}
           <div>
             <h3 className="text-sm font-semibold text-white mb-4">Arabic Font</h3>
@@ -60,7 +60,7 @@ export const FontSettingsPanel: React.FC<FontSettingsPanelProps> = ({ isOpen, on
                     }
                     className="w-4 h-4 accent-green-600"
                   />
-                  <span className="text-slate-300">{font.name}</span>
+                  <span className="text-slate-700">{font.name}</span>
                 </label>
               ))}
             </div>
@@ -80,9 +80,9 @@ export const FontSettingsPanel: React.FC<FontSettingsPanelProps> = ({ isOpen, on
               max="48"
               value={fontSettings.arabicFontSize}
               onChange={(e) => handleArabicFontSizeChange(Number(e.target.value))}
-              className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-green-600"
+              className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-green-600"
             />
-            <div className="flex justify-between text-xs text-slate-500 mt-2">
+            <div className="flex justify-between text-xs text-slate-600 mt-2">
               <span>16px</span>
               <span>48px</span>
             </div>
@@ -102,9 +102,9 @@ export const FontSettingsPanel: React.FC<FontSettingsPanelProps> = ({ isOpen, on
               max="24"
               value={fontSettings.translationFontSize}
               onChange={(e) => handleTranslationFontSizeChange(Number(e.target.value))}
-              className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-green-600"
+              className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-green-600"
             />
-            <div className="flex justify-between text-xs text-slate-500 mt-2">
+            <div className="flex justify-between text-xs text-slate-600 mt-2">
               <span>12px</span>
               <span>24px</span>
             </div>
@@ -112,10 +112,10 @@ export const FontSettingsPanel: React.FC<FontSettingsPanelProps> = ({ isOpen, on
         </div>
 
         {/* Footer */}
-        <div className="border-t border-slate-800 p-6">
+        <div className="border-t border-slate-200 p-6">
           <button
             onClick={onClose}
-            className="w-full px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors"
+            className="w-full px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors font-medium"
           >
             Done
           </button>

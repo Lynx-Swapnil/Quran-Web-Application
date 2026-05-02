@@ -23,20 +23,20 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => 
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-start justify-center z-50 pt-4 lg:pt-20">
-      <div className="bg-slate-900 w-full lg:w-2xl rounded-lg border border-slate-800 shadow-2xl max-h-[90vh] overflow-hidden flex flex-col">
+      <div className="bg-white w-full lg:w-2xl rounded-lg border border-slate-200 shadow-2xl max-h-[90vh] overflow-hidden flex flex-col">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-slate-800">
+        <div className="flex items-center justify-between p-4 border-b border-slate-200">
           <input
             type="text"
             placeholder="Search surahs or translations..."
             value={query}
             onChange={(e) => handleSearch(e.target.value)}
-            className="flex-1 bg-slate-800 text-white placeholder-slate-500 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-green-600"
+            className="flex-1 bg-slate-50 text-slate-900 placeholder-slate-500 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-green-600"
             autoFocus
           />
           <button
             onClick={onClose}
-            className="ml-2 p-2 hover:bg-slate-800 rounded-lg transition-colors"
+            className="ml-2 p-2 hover:bg-slate-100 rounded-lg transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -45,28 +45,28 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => 
         {/* Results */}
         <div className="flex-1 overflow-y-auto">
           {query.trim() === '' ? (
-            <div className="p-8 text-center text-slate-400">
+            <div className="p-8 text-center text-slate-500">
               <p>Type to search surahs and ayahs...</p>
             </div>
           ) : searchResults.length === 0 ? (
-            <div className="p-8 text-center text-slate-400">
+            <div className="p-8 text-center text-slate-500">
               <p>No results found for "{query}"</p>
             </div>
           ) : (
-            <div className="divide-y divide-slate-800">
+            <div className="divide-y divide-slate-200">
               {searchResults.slice(0, 10).map((result, index) => (
                 <Link
                   key={index}
                   href={`/${result.surah.number}#ayah-${result.ayah.number}`}
                   onClick={onClose}
                 >
-                  <div className="p-4 hover:bg-slate-800 transition-colors cursor-pointer">
+                  <div className="p-4 hover:bg-slate-50 transition-colors cursor-pointer">
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex-1">
-                        <p className="text-sm text-slate-400">
+                        <p className="text-sm text-slate-600">
                           {result.surah.englishName} · Ayah {result.ayah.number}
                         </p>
-                        <p className="text-slate-300 mt-1 text-sm">
+                        <p className="text-slate-700 mt-1 text-sm">
                           {result.ayah.translation.substring(0, 100)}...
                         </p>
                       </div>
@@ -78,7 +78,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => 
                 </Link>
               ))}
               {searchResults.length > 10 && (
-                <div className="p-4 text-center text-slate-400 text-sm">
+                <div className="p-4 text-center text-slate-500 text-sm">
                   Showing 10 of {searchResults.length} results
                 </div>
               )}
