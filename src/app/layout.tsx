@@ -39,7 +39,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="bg-white text-slate-900 min-h-screen">{children}</body>
+      <body className="bg-slate-950 text-slate-100 min-h-screen">{children}</body>
     </html>
   );
 }
