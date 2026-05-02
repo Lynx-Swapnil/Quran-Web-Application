@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Search, Bell, ChevronDown } from 'lucide-react';
+import { Search, Bell, ChevronDown, Play, BookOpen, Bookmark, MoreHorizontal } from 'lucide-react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { AyahCard } from '@/components/AyahCard';
@@ -16,7 +16,6 @@ export default function SurahPage() {
   const { fontSettings, setCurrentSurah, updateFontSettings } = useQuranStore();
   const allSurahs = getAllSurahs();
 
-  const [activeTab, setActiveTab] = useState<'Surah' | 'Juz' | 'Page'>('Surah');
   const [showSettings, setShowSettings] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [showFontDropdown, setShowFontDropdown] = useState(false);
@@ -79,70 +78,31 @@ export default function SurahPage() {
 
       {/* Main Content */}
       <div className="flex flex-1 overflow-hidden">
-        {/* Left Sidebar */}
-        <div className="w-80 bg-slate-50 border-r border-slate-200 flex flex-col overflow-hidden">
-          {/* Tabs */}
-          <div className="flex border-b border-slate-200">
-            {(['Surah', 'Juz', 'Page'] as const).map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`flex-1 py-3 text-center font-medium transition-colors ${
-                  activeTab === tab
-                    ? 'text-slate-900 border-b-2 border-green-600'
-                    : 'text-slate-600 hover:text-slate-900'
-                }`}
-              >
-                {tab}
-              </button>
-            ))}
+        {/* Left Sidebar Rail */}
+        <aside className="hidden lg:flex w-20 shrink-0 flex-col items-center border-r border-slate-800 bg-slate-950 px-3 py-6">
+          <div className="mb-8 flex h-10 w-10 items-center justify-center rounded-full border border-slate-800 bg-slate-900 text-sm font-semibold text-green-600">
+            {surah.number}:{surah.ayahs[0]?.number ?? 1}
           </div>
 
-          {/* Search */}
-          <div className="p-4 border-b border-slate-800">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-              <input
-                type="text"
-                placeholder="Search Surah"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-slate-800 border border-slate-700 rounded-lg pl-10 pr-3 py-2 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-green-600"
-              />
-            </div>
+          <div className="flex flex-col items-center gap-5 text-slate-500">
+            <button className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-800 bg-slate-900 transition-colors hover:border-slate-700 hover:bg-slate-800 hover:text-white" title="Play">
+              <Play className="h-4 w-4" />
+            </button>
+            <button className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-800 bg-slate-900 transition-colors hover:border-slate-700 hover:bg-slate-800 hover:text-white" title="Reading">
+              <BookOpen className="h-4 w-4" />
+            </button>
+            <button className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-800 bg-slate-900 transition-colors hover:border-slate-700 hover:bg-slate-800 hover:text-white" title="Bookmark">
+              <Bookmark className="h-4 w-4" />
+            </button>
+            <button className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-800 bg-slate-900 transition-colors hover:border-slate-700 hover:bg-slate-800 hover:text-white" title="More">
+              <MoreHorizontal className="h-4 w-4" />
+            </button>
           </div>
 
-          {/* Surah List */}
-          <div className="flex-1 overflow-y-auto">
-            {filteredSurahs.map((s) => (
-              <Link key={s.number} href={`/${s.number}`}>
-                <div
-                  className={`p-3 border-l-4 cursor-pointer transition-colors ${
-                    surahNumber === s.number
-                      ? 'bg-green-600 border-green-600 text-white'
-                      : 'border-transparent text-slate-400 hover:bg-slate-800'
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
-                    <div
-                      className={`w-8 h-8 rounded-lg flex items-center justify-center font-semibold text-sm ${
-                        surahNumber === s.number
-                          ? 'bg-green-700'
-                          : 'bg-slate-800 text-slate-300'
-                      }`}
-                    >
-                      {s.number}
-                    </div>
-                    <div className="flex-1">
-                      <p className="font-medium text-sm">{s.englishName}</p>
-                      <p className="text-xs text-slate-500">{s.arabicName}</p>
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            ))}
+          <div className="mt-auto flex h-11 w-11 items-center justify-center rounded-full border border-slate-800 bg-slate-900 text-slate-500">
+            <Search className="h-4 w-4" />
           </div>
-        </div>
+        </aside>
 
         {/* Center Content */}
         <div className="flex-1 flex flex-col overflow-hidden">
