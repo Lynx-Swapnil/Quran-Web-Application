@@ -1,197 +1,77 @@
-'use client';
+"use client";
 
-import { useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { Search, ChevronDown, Settings, Globe } from 'lucide-react';
-import { getAllSurahs, getSurahByNumber } from '@/lib/quranData';
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
 
-const QUICK_SURAHS = [
-  { number: 67, name: 'Al Mulk' },
-  { number: 36, name: 'Yasin' },
-  { number: 18, name: 'Al Kahf' },
-  { number: 112, name: 'Al Ikhlas' },
-];
+interface Surah {
+  surah_number: number;
+  surah_name: string;
+}
 
-export default function Home() {
-  const router = useRouter();
-  const [searchQuery, setSearchQuery] = useState('');
-  const [randomAyah, setRandomAyah] = useState<any>(null);
+const HomePage: React.FC = () => {
+  const [surahs, setSurahs] = useState<Surah[]>([]);
+  const [selectedSurah, setSelectedSurah] = useState<number | null>(null);
 
   useEffect(() => {
-    // Get a random ayah to display
-    const surah = getSurahByNumber(19); // Maryam (like in the reference)
-    if (surah && surah.ayahs.length > 0) {
-      const randomIndex = Math.floor(Math.random() * surah.ayahs.length);
-      setRandomAyah({
-        ...surah.ayahs[randomIndex],
-        surahName: surah.englishName,
-      });
-    }
+    const fetchSurahs = async () => {
+      try {
+        const response = await fetch("/data/surah.json"); // Fetching from public directory
+        if (!response.ok) {
+          throw new Error("Failed to fetch Surah name");
+        }
+        const data = await response.json();
+        setSurahs(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchSurahs();
   }, []);
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      router.push(`/1?search=${encodeURIComponent(searchQuery)}`);
-    }
-  };
-
-  const handleQuickSurah = (surahNumber: number) => {
-    router.push(`/${surahNumber}`);
-  };
-
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100">
-      {/* Navigation Header */}
-      <nav className="sticky top-0 bg-slate-900 border-b border-slate-800 z-50">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-xl">ق</span>
-            </div>
-            <div>
-              <h1 className="text-xl font-bold text-white">Quran Mazid</h1>
-              <p className="text-xs text-slate-400">Read, Study, and Learn The Quran</p>
-            </div>
-          </Link>
+    <div className="min-h-screen text-gray-800 bg-gradient-to-r from-green-200 via-blue-200 to-purple-200 flex flex-col items-center justify-center p-6 md:p-12">
+      <div className="absolute top-0 right-0 p-4 bg-white rounded-lg shadow-xl m-4">
+        <Link href="https://github.com/abusayed0206/banglaquran" className="text-blue-800 hover:underline" target="_blank" rel="noopener noreferrer">
+          Github
+        </Link>
+      </div>
+      {/* First Section: Surah Selection */}
+      <div className="bg-white rounded-lg shadow-xl p-6 mb-12 w-full max-w-2xl mx-auto">
+        <h2 className="text-3xl text-center sm:text-4xl font-semibold text-blue-800 mb-4">বাংলা কোরআন অডিও🎧📖</h2>
+        <h1 className="text-center text-2xl sm:text-2xl font-bold text-blue-700 mb-5">কোরআনের সূরা নির্বাচন করুন</h1>
 
-          {/* Menu Items */}
-          <div className="hidden lg:flex items-center gap-8">
-            <Link href="/" className="text-slate-300 hover:text-white transition-colors font-medium">
-              Home
-            </Link>
-            <Link href="/1" className="text-slate-400 hover:text-white transition-colors">
-              Read Quran
-            </Link>
-            <Link href="/prayer-times" className="text-slate-400 hover:text-white transition-colors">
-              Prayer Time
-            </Link>
-            <Link href="/ramadan" className="text-slate-400 hover:text-white transition-colors">
-              Ramadan 2026
-            </Link>
-            <div className="relative group">
-              <button className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors">
-                Others
-                <ChevronDown className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
-
-          {/* Right Actions */}
-          <div className="flex items-center gap-4">
-            <button className="p-2 rounded-lg hover:bg-slate-800 transition-colors">
-              <Globe className="w-5 h-5 text-slate-400" />
-            </button>
-            <button className="p-2 rounded-lg hover:bg-slate-800 transition-colors">
-              <Settings className="w-5 h-5 text-slate-400" />
-            </button>
-            <button className="px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg text-white font-medium transition-colors">
-              Support Us
-            </button>
-          </div>
-        </div>
-      </nav>
-
-      {/* Hero Section */}
-      <div className="relative overflow-hidden">
-        {/* Background with lanterns decoration */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-20 left-10 w-24 h-32 border-2 border-slate-400 rounded-b-lg"></div>
-          <div className="absolute top-20 right-10 w-24 h-32 border-2 border-slate-400 rounded-b-lg"></div>
-          <div className="absolute bottom-20 left-20 w-20 h-28 border-2 border-slate-400 rounded-b-lg"></div>
-          <div className="absolute bottom-20 right-20 w-20 h-28 border-2 border-slate-400 rounded-b-lg"></div>
-        </div>
-
-        <div className="relative z-10 max-w-6xl mx-auto px-6 py-24 text-center">
-          {/* Main Title */}
-          <h2 className="text-6xl lg:text-7xl font-bold text-white mb-12 tracking-wider">
-            QURAN MAZID
-          </h2>
-
-          {/* Search Box */}
-          <form onSubmit={handleSearch} className="mb-16 max-w-2xl mx-auto">
-            <div className="relative">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
-              <input
-                type="text"
-                placeholder="What do you want to read?"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-slate-800 border border-slate-700 rounded-lg pl-12 pr-16 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-green-600"
-              />
-              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 text-sm">
-                Ctrl+k
-              </span>
-            </div>
-          </form>
-
-          {/* Quick Surahs */}
-          <div className="flex flex-wrap justify-center gap-4 mb-24">
-            {QUICK_SURAHS.map((surah) => (
-              <button
-                key={surah.number}
-                onClick={() => handleQuickSurah(surah.number)}
-                className="px-6 py-2 border border-slate-700 rounded-lg text-slate-300 hover:text-white hover:border-slate-600 transition-colors"
-              >
-                {surah.name}
-              </button>
+        <div className="mb-5">
+          <label htmlFor="surah-select" className="block text-lg font-semibold text-center text-gray-700 mb-2">
+            সূরা সংখ্যা ও নাম নির্বাচন করুন:
+          </label>
+          <select
+            id="surah-select"
+            value={selectedSurah || ""}
+            onChange={(e) => setSelectedSurah(parseInt(e.target.value, 10))}
+            className="border-2 text-center border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg w-full"
+          >
+            <option value="">-- সূরা নির্বাচন করুন --</option>
+            {surahs.map((surah) => (
+              <option key={surah.surah_number} value={surah.surah_number}>
+                {surah.surah_number} - {surah.surah_name}
+              </option>
             ))}
-          </div>
-
-          {/* Random Ayah Display */}
-          {randomAyah && (
-            <div className="max-w-2xl mx-auto">
-              <p className="text-slate-400 text-lg mb-6">
-                {randomAyah.translation}
-              </p>
-              <p className="text-slate-500">
-                [ {randomAyah.surahName} : {randomAyah.number} ]
-              </p>
-            </div>
-          )}
+          </select>
         </div>
+
+        {selectedSurah && (
+          <Link
+            href={`/surah/${selectedSurah}`}
+            className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition mt-4 block text-center"
+          >
+            দেখুন
+          </Link>
+        )}
       </div>
 
-      {/* Features Section */}
-      <div className="max-w-6xl mx-auto px-6 py-20">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="text-center">
-            <div className="w-16 h-16 bg-green-600 bg-opacity-20 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <Search className="w-8 h-8 text-green-600" />
-            </div>
-            <h3 className="text-lg font-semibold text-white mb-2">Easy Search</h3>
-            <p className="text-slate-400">
-              Quickly search through translations and find any ayah you're looking for
-            </p>
-          </div>
-
-          <div className="text-center">
-            <div className="w-16 h-16 bg-green-600 bg-opacity-20 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-green-600" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 3v9.28c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2V7h4V3h-6z" />
-              </svg>
-            </div>
-            <h3 className="text-lg font-semibold text-white mb-2">Audio Recitation</h3>
-            <p className="text-slate-400">
-              Listen to beautiful recitations from renowned Quran readers
-            </p>
-          </div>
-
-          <div className="text-center">
-            <div className="w-16 h-16 bg-green-600 bg-opacity-20 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-green-600" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5.04-6.71l-2.75 3.54-2.08-2.59L6.5 17h11l-3.54-4.71z" />
-              </svg>
-            </div>
-            <h3 className="text-lg font-semibold text-white mb-2">Customization</h3>
-            <p className="text-slate-400">
-              Adjust font sizes and choose your preferred translation style
-            </p>
-          </div>
-        </div>
-      </div>
     </div>
   );
-}
+};
+
+export default HomePage;

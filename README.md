@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Quran Audio in Bangla 🎧📖
 
-## Getting Started
+Welcome to the **Quran Audio in Bangla** project! This repository is created to help you listen to the Quran in Bangla without needing to go to YouTube every time. Enjoy the divine words of Allah with ease and convenience!
 
-First, run the development server:
+## Features 🌟
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- 🎧 Listen to Quranic verses in Bangla
+- 📱 Easy access through simple API endpoints
+- 📝 Audio and text data sourced from reliable platforms
+
+## API Endpoints 📡
+
+### Get Ayah Audio
+
+- **Endpoint:** `/api/[surahnumber]`
+- **Example Request:** `/api/1`
+- **Example Response:**
+
+```json
+{
+  "surah_number": "1",
+  "surah_name": "আল ফাতিহা",
+  "total_ayahs": 7,
+  "ayah": [
+    { "img": "/imgs/bangla/1-1.png", "audio": "/audio/bangla/1-1.mp3" },
+    { "img": "/imgs/bangla/1-2.png", "audio": "/audio/bangla/1-2.mp3" },
+    { "img": "/imgs/bangla/1-3.png", "audio": "/audio/bangla/1-3.mp3" },
+    { "img": "/imgs/bangla/1-4.png", "audio": "/audio/bangla/1-4.mp3" },
+    { "img": "/imgs/bangla/1-5.png", "audio": "/audio/bangla/1-5.mp3" },
+    { "img": "/imgs/bangla/1-6.png", "audio": "/audio/bangla/1-6.mp3" },
+    { "img": "/imgs/bangla/1-7.png", "audio": "/audio/bangla/1-7.mp3" }
+  ]
+}
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Acknowledgments 🙏
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Audio and Images from:** [Quran.Gov.BD](http://www.quran.gov.bd/)
+  
+A heartfelt thank you to those who made this content available. **Jazakallahu Khair!**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Support 🤲
 
-## Learn More
+Please pray for me; it would be the best donation for my efforts.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Windows Store version
+ <a href="https://apps.microsoft.com/detail/9n3gsz7v18zp?referrer=appbadge&mode=direct">
+	<img src="https://get.microsoft.com/images/en-us%20dark.svg" width="200"/>
+</a>

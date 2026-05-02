@@ -1,20 +1,25 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Tiro_Bangla } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Tiro_Bangla({
+  weight: "400",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Quran Mazid - Read, Study, and Learn The Quran",
-  description: "Read and learn the Quran with Arabic text, translations, and audio recitations",
+  title: "বাঙলা কোরআন অডিও",
+  description: "শুধুমাত্র বাঙলা অডিও কোরআন শোনার জন্য",
+  openGraph: {
+    images: [
+      {
+        url: "https://quran.sayed.page/og.png",
+        width: 1200,
+        height: 630,
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
@@ -23,23 +28,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable}`}
-    >
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              try {
-                document.documentElement.classList.remove('dark');
-              } catch (e) {}
-            `,
-          }}
-        />
-      </head>
-      <body className="bg-slate-950 text-slate-100 min-h-screen">{children}</body>
+    <html lang="en">
+      <body className={inter.className}>{children}</body>
     </html>
   );
 }
